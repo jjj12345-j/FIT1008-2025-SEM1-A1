@@ -3,7 +3,7 @@ from enum import auto, IntEnum
 from config import Config
 from data_structures import *
 
-
+test tes
 class CardColor(IntEnum):
     """
     Enum class for the color of the card
