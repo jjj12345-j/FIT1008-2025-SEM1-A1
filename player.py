@@ -3,7 +3,6 @@ from card import Card, CardColor, CardLabel
 from config import Config
 from data_structures import *
 
-
 class Player:
     """
     Player class to store the player details
@@ -25,8 +24,8 @@ class Player:
             Worst Case Complexity:
         """
         self.name = name
-        self.hand = ArrayList()
-        raise NotImplementedError
+        self.hand = ArraySortedList(Config.NUM_CARDS_AT_INIT)
+        # raise NotImplementedError
 
     def add_card(self, card: Card) -> None:
         """
@@ -42,8 +41,11 @@ class Player:
             Best Case Complexity:
             Worst Case Complexity:
         """
+        self.hand.add(card)
+        # length = len(self.hand)
+        # self.hand.insert(length + 1, card)
 
-        raise NotImplementedError
+        # raise NotImplementedError
 
     def is_empty(self) -> bool:
         """
@@ -59,7 +61,8 @@ class Player:
             Best Case Complexity:
             Worst Case Complexity:
         """
-        raise NotImplementedError
+        return self.hand.is_empty()
+        # raise NotImplementedError
 
     def cards_in_hand(self) -> int:
         """
@@ -75,7 +78,8 @@ class Player:
             Best Case Complexity:
             Worst Case Complexity:
         """
-        raise NotImplementedError
+        return len(self.hand)
+        # raise NotImplementedError
 
     def play_card(
         self, current_color: CardColor, current_label: CardLabel
@@ -94,7 +98,23 @@ class Player:
             Best Case Complexity:
             Worst Case Complexity:
         """
-        raise NotImplementedError
+        # availableCards = ArrayList(len(self.hand))
+        #finding cards that meets condition to be played
+
+        #finding lowest card
+        for card in self.hand:
+            if card.color == current_color or card.label == current_label:
+                self.hand.remove(card)
+                return card
+            return None
+
+        # if availableCards == None:
+        #     return None
+        #
+        # cardToBePlayed = min(availableCards)
+        # return cardToBePlayed
+
+        # raise NotImplementedError
 
     def __str__(self) -> str:
         """

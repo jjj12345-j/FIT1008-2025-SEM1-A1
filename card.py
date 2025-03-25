@@ -81,7 +81,7 @@ class Card:
         """
         self.color = color
         self.label = label
-        raise NotImplementedError
+        # raise NotImplementedError
 
     def __str__(self) -> str:
         """
@@ -115,3 +115,12 @@ class Card:
             bool: True if this card is equal to the other card, False otherwise.
         """
         return self.color == other.color and self.label == other.label
+
+    def __lt__(self, other: Card) -> bool:
+        """
+        Compare two card abject for sorting, first by color then by label if color are same.
+        """
+        if self.color != other.color:
+            return self.color < other.color
+        return self.label < other.label
+
