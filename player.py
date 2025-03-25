@@ -24,6 +24,8 @@ class Player:
             Best Case Complexity:
             Worst Case Complexity:
         """
+        self.name = name
+        self.hand = ArrayList()
         raise NotImplementedError
 
     def add_card(self, card: Card) -> None:
@@ -40,6 +42,7 @@ class Player:
             Best Case Complexity:
             Worst Case Complexity:
         """
+
         raise NotImplementedError
 
     def is_empty(self) -> bool:

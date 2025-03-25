@@ -3,7 +3,6 @@ from enum import auto, IntEnum
 from config import Config
 from data_structures import *
 
-test tes
 class CardColor(IntEnum):
     """
     Enum class for the color of the card
@@ -25,6 +24,7 @@ class CardColor(IntEnum):
         Returns:
             str: The string representation of the CardColor
         """
+        return self.name
         pass
 
 
@@ -59,6 +59,7 @@ class CardLabel(IntEnum):
         Returns:
             str: The string representation of the CardLabel
         """
+        return self.name
         pass
 
 
@@ -78,6 +79,8 @@ class Card:
             Best Case:
             Worst Case:
         """
+        self.color = color
+        self.label = label
         raise NotImplementedError
 
     def __str__(self) -> str:
@@ -86,6 +89,7 @@ class Card:
 
         Optional method for debugging.
         """
+        return (f"{self.color}  {self.label}")
         pass
 
     def __repr__(self) -> str:
