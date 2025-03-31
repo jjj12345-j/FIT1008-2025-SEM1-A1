@@ -28,7 +28,8 @@ class Game:
             Best Case Complexity: o(1)
             Worst Case Complexity: O(1)
         """
-        self.currentPlayerIndex = 0 #track current player
+
+        self.currentPlayerIndex = -1 #-1 mean game havent start
         self.playerTurnDirection = 1 # changes to negative when in reverse
         self.players = ArrayList()
         self.current_player = None
@@ -144,7 +145,6 @@ class Game:
 
 
 
-        # raise NotImplementedError
 
     def next_player(self) -> Player:
         """
@@ -162,12 +162,12 @@ class Game:
             Best Case Complexity: O(1)
             Worst Case Complexity:O(1)
         """
-        if self.current_player is None:
+        if self.currentPlayerIndex == -1:
             return self.players[0]
 
-        #using modulo so index doesn't go out of range
-        self.currentPlayerIndex = (self.currentPlayerIndex + self.playerTurnDirection) % len(self.players)
-        return self.players[self.currentPlayerIndex]
+        # using modulo so index doesn't go out of range
+        nextPlayerIndex = (self.currentPlayerIndex + self.playerTurnDirection) % len(self.players) #new
+        return self.players[nextPlayerIndex] #new
 
     def reverse_players(self) -> None:
         """
@@ -185,6 +185,9 @@ class Game:
             Worst Case Complexity: O(1)
         """
         self.playerTurnDirection *= -1
+        if self.currentPlayerIndex == -1:
+            self.currentPlayerIndex += 1
+
 
     def skip_next_player(self) -> None:
         """
@@ -198,10 +201,13 @@ class Game:
 
         Complexity:
             calling next_player- O(1)
+            math operation- O(1)
             Best Case Complexity: O(1)
             Worst Case Complexity: O(1)
         """
         self.current_player = self.next_player()
+        self.currentPlayerIndex = (self.currentPlayerIndex + self.playerTurnDirection) % len(self.players)
+
 
     def play_draw_two(self) -> None:
         """
@@ -251,7 +257,6 @@ class Game:
             for cardCount in range(4):
                self.draw_card(self.current_player, False)
         self.current_color = CardColor(RandomGen.randint(0,3))
-        # raise NotImplementedError
 
     def draw_card(self, player: Player, playing: bool) -> Card | None:
         """
@@ -295,7 +300,9 @@ class Game:
         winner = False
         while winner == False:
             self.current_player = self.next_player()
+            self.currentPlayerIndex = (self.currentPlayerIndex + self.playerTurnDirection) % len(self.players)
             currentPlayer = self.current_player
+            #variable to keep track of current player before it gets changed when other cards are played.
             cardPlayed = self.current_player.play_card(self.current_color,self.current_label)
             if cardPlayed is None:
                 cardPlayed = self.draw_card(self.current_player, True)
@@ -327,5 +334,3 @@ class Game:
 
             if currentPlayer.is_empty():
                 return currentPlayer
-
-        # raise NotImplementedError

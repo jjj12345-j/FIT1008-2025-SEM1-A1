@@ -174,6 +174,7 @@ class TestGame(TestCase):
     @visibility(visibility.VISIBILITY_SHOW)
     def test_reverse(self) -> None:
         # Check the next player
+        # print("CURRENT PLAYER: ", self.players[self.game.currentPlayerIndex].name)
         next_player: Player = self.game.next_player()
         self.assertEqual(
             next_player.name,
@@ -183,6 +184,7 @@ class TestGame(TestCase):
 
         # Call the reverse method
         self.game.reverse_players()
+        print("I AM REVERSED BITS")
 
         # Check the next player
         next_player: Player = self.game.next_player()
@@ -191,6 +193,7 @@ class TestGame(TestCase):
             "David",
             f"Next player should be David, but is {next_player.name}",
         )
+        print("fail")
 
     @number("3.7")
     @visibility(visibility.VISIBILITY_SHOW)
