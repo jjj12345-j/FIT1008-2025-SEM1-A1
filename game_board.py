@@ -21,10 +21,25 @@ class GameBoard:
             None
 
         Complexity:
-            Best Case Complexity:
-            Worst Case Complexity:
+            where n is the number of cards
+            assigning card - O(1)
+            initialising empty circularqueue and arraylist - O(1)
+            appending daw pile - O(n)
+
+            Best Case Complexity: O(n)
+            Worst Case Complexity: O(n)
         """
+<<<<<<< Updated upstream
         raise NotImplementedError
+=======
+        self.cards = cards
+        #use queue so order of card will be in same order when drawn
+        self.draw_pile = CircularQueue(Config.DECK_SIZE)
+        #use arraylist so reshuffle will work
+        self.discard_pile = ArrayList(Config.DECK_SIZE)
+        for card in cards:
+            self.draw_pile.append(card)
+>>>>>>> Stashed changes
 
     def discard_card(self, card: Card) -> None:
         """
@@ -37,10 +52,15 @@ class GameBoard:
             None
 
         Complexity:
-            Best Case Complexity:
-            Worst Case Complexity:
+            appending card is O(1)
+            Best Case Complexity: O(1)
+            Worst Case Complexity: O(1)
         """
+<<<<<<< Updated upstream
         raise NotImplementedError
+=======
+        self.discard_pile.append(card)
+>>>>>>> Stashed changes
 
     def reshuffle(self) -> None:
         """
@@ -53,10 +73,21 @@ class GameBoard:
             None
 
         Complexity:
-            Best Case Complexity:
-            Worst Case Complexity:
+            where n is number of cards in discard_pile
+            shuffling discard_pile - O(nlogn)
+            appending draw_pile - O(n)
+
+            Best Case Complexity: O(nlogn)
+            Worst Case Complexity: O(nlogn)
         """
+<<<<<<< Updated upstream
         raise NotImplementedError
+=======
+        RandomGen.random_shuffle(self.discard_pile)
+        for card in self.discard_pile:
+            self.draw_pile.append(card)
+        self.discard_pile.clear() #empty discard pile
+>>>>>>> Stashed changes
 
     def draw_card(self) -> Card:
         """
@@ -69,7 +100,18 @@ class GameBoard:
             Card: The card drawn from the draw pile.
 
         Complexity:
-            Best Case Complexity:
-            Worst Case Complexity:
+            where n is the number of cards in discard_pile
+            drawing card with serve method- O(1)
+            if draw pile is empty and reshuffle is called - O(nlogn)
+            Best Case Complexity: O(1)
+            Worst Case Complexity: O(nlogn)
         """
+<<<<<<< Updated upstream
         raise NotImplementedError
+=======
+        if self.draw_pile.is_empty():
+            self.reshuffle()
+
+        return self.draw_pile.serve()
+
+>>>>>>> Stashed changes
