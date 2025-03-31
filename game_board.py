@@ -29,9 +29,6 @@ class GameBoard:
             Best Case Complexity: O(n)
             Worst Case Complexity: O(n)
         """
-<<<<<<< Updated upstream
-        raise NotImplementedError
-=======
         self.cards = cards
         #use queue so order of card will be in same order when drawn
         self.draw_pile = CircularQueue(Config.DECK_SIZE)
@@ -39,7 +36,6 @@ class GameBoard:
         self.discard_pile = ArrayList(Config.DECK_SIZE)
         for card in cards:
             self.draw_pile.append(card)
->>>>>>> Stashed changes
 
     def discard_card(self, card: Card) -> None:
         """
@@ -56,11 +52,7 @@ class GameBoard:
             Best Case Complexity: O(1)
             Worst Case Complexity: O(1)
         """
-<<<<<<< Updated upstream
-        raise NotImplementedError
-=======
         self.discard_pile.append(card)
->>>>>>> Stashed changes
 
     def reshuffle(self) -> None:
         """
@@ -80,14 +72,10 @@ class GameBoard:
             Best Case Complexity: O(nlogn)
             Worst Case Complexity: O(nlogn)
         """
-<<<<<<< Updated upstream
-        raise NotImplementedError
-=======
         RandomGen.random_shuffle(self.discard_pile)
         for card in self.discard_pile:
             self.draw_pile.append(card)
         self.discard_pile.clear() #empty discard pile
->>>>>>> Stashed changes
 
     def draw_card(self) -> Card:
         """
@@ -106,12 +94,8 @@ class GameBoard:
             Best Case Complexity: O(1)
             Worst Case Complexity: O(nlogn)
         """
-<<<<<<< Updated upstream
-        raise NotImplementedError
-=======
         if self.draw_pile.is_empty():
             self.reshuffle()
 
         return self.draw_pile.serve()
 
->>>>>>> Stashed changes
