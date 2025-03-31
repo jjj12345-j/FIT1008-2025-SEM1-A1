@@ -3,7 +3,6 @@ from card import Card, CardColor, CardLabel
 from config import Config
 from data_structures import *
 
-
 class Player:
     """
     Player class to store the player details
@@ -21,10 +20,13 @@ class Player:
             None
 
         Complexity:
-            Best Case Complexity:
-            Worst Case Complexity:
+            assign string- O(1)
+            initialising arraysortedlist - O(1)
+            Best Case Complexity: O(1)
+            Worst Case Complexity: O(1)
         """
-        raise NotImplementedError
+        self.name = name
+        self.hand = ArraySortedList(Config.NUM_CARDS_AT_INIT)
 
     def add_card(self, card: Card) -> None:
         """
@@ -37,10 +39,15 @@ class Player:
             None
 
         Complexity:
-            Best Case Complexity:
-            Worst Case Complexity:
+            where k is the cards in hand.
+            O(logk) for binary searching where to place card
+            O(k) for having to shuffle all cards if card to be place is at beginning (worst)
+            O(1) if no shuffling required, where card to be places is at the end (best)
+            Best Case Complexity: O(logk)
+            Worst Case Complexity: 0(k)
         """
-        raise NotImplementedError
+        self.hand.add(card)
+
 
     def is_empty(self) -> bool:
         """
@@ -53,10 +60,11 @@ class Player:
             bool: True if the player's hand is empty, False otherwise
 
         Complexity:
-            Best Case Complexity:
-            Worst Case Complexity:
+            Only checks length of hand, so O(1) for both case
+            Best Case Complexity: O(1)
+            Worst Case Complexity: O(1)
         """
-        raise NotImplementedError
+        return self.hand.is_empty()
 
     def cards_in_hand(self) -> int:
         """
@@ -69,10 +77,11 @@ class Player:
             int: The number of cards left in the player's hand
 
         Complexity:
-            Best Case Complexity:
-            Worst Case Complexity:
+            Returns length of hand so O(1) for both case
+            Best Case Complexity: O(1)
+            Worst Case Complexity: O(1)
         """
-        raise NotImplementedError
+        return len(self.hand)
 
     def play_card(
         self, current_color: CardColor, current_label: CardLabel
@@ -88,10 +97,23 @@ class Player:
             Card: The first card that is playable from the player's hand
 
         Complexity:
-            Best Case Complexity:
-            Worst Case Complexity:
+            Linear scan for hand sortedlist, best case would be where card is at beginning
+            of hand and worst case where it is at end
+
+            Best Case Complexity: O(1)
+            Worst Case Complexity: O(n)
         """
-        raise NotImplementedError
+
+        #finding lowest card
+        for cardIndex in range(len(self.hand)):
+            #extra conditional statements for black cards
+            if (self.hand[cardIndex].color == current_color or self.hand[cardIndex].label == current_label or(
+                self.hand[cardIndex].label == CardLabel.CRAZY) or self.hand[cardIndex].label == CardLabel.DRAW_FOUR):
+                cardToBePlayed = self.hand[cardIndex]
+                self.hand.remove(self.hand[cardIndex])
+                return cardToBePlayed
+        return None
+
 
     def __str__(self) -> str:
         """

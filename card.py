@@ -3,7 +3,6 @@ from enum import auto, IntEnum
 from config import Config
 from data_structures import *
 
-test tes
 class CardColor(IntEnum):
     """
     Enum class for the color of the card
@@ -25,6 +24,7 @@ class CardColor(IntEnum):
         Returns:
             str: The string representation of the CardColor
         """
+        return self.name
         pass
 
 
@@ -59,6 +59,7 @@ class CardLabel(IntEnum):
         Returns:
             str: The string representation of the CardLabel
         """
+        return self.name
         pass
 
 
@@ -75,10 +76,12 @@ class Card:
             None
 
         Complexity:
-            Best Case:
-            Worst Case:
+            Best and Worst case both just assign an attribute so it's O(1) for both case
+            Best Case: O(1)
+            Worst Case: O(1)
         """
-        raise NotImplementedError
+        self.color = color
+        self.label = label
 
     def __str__(self) -> str:
         """
@@ -86,6 +89,7 @@ class Card:
 
         Optional method for debugging.
         """
+        return (f"{self.color}  {self.label}")
         pass
 
     def __repr__(self) -> str:
@@ -111,3 +115,30 @@ class Card:
             bool: True if this card is equal to the other card, False otherwise.
         """
         return self.color == other.color and self.label == other.label
+
+    def __lt__(self, other: Card) -> bool:
+        """
+        Method to allow comparison of two card object (by color first then label)
+
+        Args:
+            other (Card): The other card to compare to.
+
+        Returns:
+            bool: True if this card value is smaller than other card, False otherwise.
+        """
+        if self.color != other.color:
+            return self.color.value < other.color.value
+        return self.label.value < other.label.value
+
+    def __le__(self, other: Card) -> bool:
+        """
+            Method to allow <= comparison of two card object
+
+            Args:
+                other (Card): The other card to compare to.
+
+            Returns:
+                bool: True if this card value is smaller than or equal other card, False otherwise.
+        """
+
+        return self < other or self == other
